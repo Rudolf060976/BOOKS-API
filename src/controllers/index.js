@@ -1,8 +1,11 @@
-const book = require('./book')
+const book = require('./book');
 
-const author = require('./author')
+const author = require('./author');
+
+const auth_session = require('./auth_session');
 
 module.exports = {
 	book,
-	author
+	author,
+	auth_session: auth_session
 }

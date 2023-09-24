@@ -4,8 +4,11 @@ const author = require('./author')
 
 const shared = require('./shared')
 
+const auth = require('./auth');
+
 module.exports = {
 	book,
 	author,
-	shared
+	shared,
+	auth
 }

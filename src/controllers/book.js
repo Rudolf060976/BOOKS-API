@@ -1,6 +1,6 @@
 const createError = require('http-errors');
-const crudOperations = require('../database/crud')
-
+const crudOperations = require('../database/crud');
+const moment = require('moment');
 
 const addBook = async (req, res, next) => {
 
@@ -44,10 +44,20 @@ const addBook = async (req, res, next) => {
 const getBooks = async (req, res, next) => {
 
 	try {
+    console.log('**** COOKIES *****', JSON.stringify(req.cookies, null, 2))
+		console.log('***** SESSION *****', JSON.stringify(req.session, null, 2))
 
 		const { page, limit } = req.query
 		
 		const allBooks = await crudOperations.book.getAllBooks(page, limit)
+		
+		// See https://expressjs.com/en/5x/api.html#res.cookie
+		res.cookie('endpoints', {
+			get: ['api/books/', 'api/books/:bookId', 'api/books/:bookId/authors'],
+			post: ['/api/books/new', 'api/books/:bookId/authors']
+		}, { httpOnly: true })
+
+		res.cookie('server-time', moment.utc().format('HH:mm:ss'), { httpOnly: true })
 
 		res.status(201).json({
 			error: null,

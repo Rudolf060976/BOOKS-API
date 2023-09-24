@@ -1,8 +1,11 @@
-const bookOperations = require('./books')
+const book = require('./books')
 
-const authorOperations = require('./authors')
+const author = require('./authors')
+
+const user = require('./user');
 
 module.exports = {
-	book: bookOperations,
-	author: authorOperations
+	book,
+	author,
+	user
 }

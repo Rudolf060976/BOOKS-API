@@ -9,9 +9,12 @@ const joiValidationMiddleware = require('../middleware/joi');
 
 const controllers = require('../controllers')
 
+const middleware = require('../middleware');
+
 
 router.get('/',	
 	joiValidationMiddleware(validators.shared.pageValidator, 'query'),  
+	middleware.auth.isAuthenticated_session,
 	controllers.book.getBooks
 );
 
