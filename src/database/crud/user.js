@@ -51,6 +51,23 @@ const getUser = async (userId) => {
 
 }
 
+const getUserByEmail = async (email) => {
+	
+	try {
+		
+		const user = await Models.User.findOne({ email })
+
+		if (!user) throw createError(404, 'User Email Not Found!')
+
+		return user.toObject();
+		
+	} catch (error) {
+		throw createError(error.status || 500, error.message)
+	}
+
+}
+
+
 const verifyUser = async (email, password) => {
 
 	try {
@@ -75,8 +92,53 @@ const verifyUser = async (email, password) => {
 
 }
 
+const storeUserResetToken = async (userId, token) => {
+
+	try {
+		
+		const user = await Models.User.findOneAndUpdate({ _id: userId }, { resetToken: token }, { new: true });
+
+		return user.toObject();
+
+	} catch (error) {
+		throw createError(error.status || 500, error.message);
+	}
+
+}
+
+const getUserByResetToken = async (resetToken) => {
+
+	try {
+		const user = await Models.User.findOne({ resetToken });
+
+		return user.toObject();
+
+	} catch (error) {
+		throw createError(error.status || 500, error.message)
+	}
+
+}
+
+const updateUserResetPassword = async (userId, password) => {
+
+	try {
+		
+		const user = await Models.User.findByIdAndUpdate(userId, { password }, { new: true });
+
+		return user.toObject()
+
+	} catch (error) {
+		throw createError(error.status || 500, error.message)
+	}
+
+}
+
 module.exports = {
 	addUser,
 	getUser,
-	verifyUser
+	verifyUser,
+	storeUserResetToken,
+	updateUserResetPassword,
+	getUserByResetToken,
+	getUserByEmail
 }

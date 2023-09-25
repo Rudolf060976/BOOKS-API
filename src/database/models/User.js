@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema({
 		minLength: 6,
 		maxLength: 30
 	},
+	resetToken: String,
 	image: {
 		type: String
 	}
