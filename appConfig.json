@@ -1,4 +1,5 @@
 {
+	"PORT": 4000,
 	"APP_BASE_URL": "http://localhost:4000",
 	"DATABASE_NAME": "bookShop",
 	"MAX_ITEMS_PER_PAGE": 5,

@@ -1,9 +1,7 @@
-const createError = require('http-errors');
 const crudOperations = require('../database/crud');
 const moment = require('moment');
-
 const addBook = async (req, res, next) => {
-
+	
 	const {
 		title,
 		chapters,
@@ -42,7 +40,7 @@ const addBook = async (req, res, next) => {
 }
 
 const getBooks = async (req, res, next) => {
-
+	
 	try {
     console.log('**** COOKIES *****', JSON.stringify(req.cookies, null, 2))
 		console.log('***** SESSION *****', JSON.stringify(req.session, null, 2))
