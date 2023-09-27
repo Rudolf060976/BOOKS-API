@@ -13,15 +13,15 @@ const createError = require('http-errors');
 const path = require('path');
 
 
-const runConfig = require('./config');
+const GlobalConfig = require('./config');
+
+const globalConfig = new GlobalConfig();
 
 
-runConfig().then(() => {
+globalConfig.loadConfig().then(() => {
 
-	const nconf = require('nconf');
-
-	const connectDB = require('./database/mongoose');
-
+	const appConfig = globalConfig.getConfig()
+	
 	const bookRoutes = require('./routes/book');
 
 	const authorRoutes = require('./routes/author');
@@ -31,7 +31,7 @@ runConfig().then(() => {
 	const sharedAuthRoutes = require('./routes/auth');
 
 	const rateLimiter = require('./middleware').rateLimit.rateLimiter;
-
+	
 	/* Will Implement two kinds of Authentication Flows for this project:
 
 		1. Using Sessions (Typically used for Full Stack Apps)
@@ -41,22 +41,20 @@ runConfig().then(() => {
 			
 		We'll be able to Switch between Auth Flows in the appConfig.json file.
 	*/
-
-	const config = nconf.get('APP');
-
+	
 	const app = express();
 
 	app.use(express.json());
 
 	app.use(logger('dev'));
 
-	app.use(cookieParser(config.COOKIES_SECRET_STRING)); // Should be the same secret used in session
+	app.use(cookieParser(appConfig.COOKIES_SECRET_STRING)); // Should be the same secret used in session
 
 	// See: https://expressjs.com/en/resources/middleware/session.html
 	app.use(session({
-		secret: config.COOKIES_SECRET_STRING,
+		secret: appConfig.COOKIES_SECRET_STRING,
 		store: MongoStore.create({   // See: https://www.npmjs.com/package/connect-mongo
-			mongoUrl: config.MONGODB_URI
+			mongoUrl: appConfig.MONGODB_URI
 		}),
 		resave: false,
 		saveUninitialized: false
@@ -105,16 +103,12 @@ runConfig().then(() => {
 	});
 
 	});
-
-	connectDB().then(() => {
-
-		app.listen(4000, () => {
 	
-			console.log('Server Ready and Listening on Port: ' + config.PORT );
-		
-		});
+	app.listen(appConfig.PORT, () => {
+
+		console.log('Server Ready and Listening on Port: ' + appConfig.PORT );
 	
-	})
+	});
 
 });
 

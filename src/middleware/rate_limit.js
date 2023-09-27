@@ -1,20 +1,20 @@
 const { rateLimit } = require('express-rate-limit')
 
-const nconf = require('nconf');
+const GlobalConfig = require('../config');
 
-const config = nconf.get('APP');
+const appConfig = (new GlobalConfig()).getConfig();
 
 const rateLimiter = rateLimit({
-	windowMs: config.RATE_LIMIT_WINDOW_SECONDS * 1000, // time Window in seconds
+	windowMs: appConfig.RATE_LIMIT_WINDOW_SECONDS * 1000, // time Window in seconds
 	limit: async (req, res) => {
 		/*
 			Authenticated users will have a different Rate Limit from Anonymous Users
 		*/
 		const isAuthenticated = !!req.session?.user;
 
-		if (isAuthenticated) return config.AUTH_USERS_RATE_LIMIT;
+		if (isAuthenticated) return appConfig.AUTH_USERS_RATE_LIMIT;
 
-		return config.ANONYMOUS_USERS_RATE_LIMIT
+		return appConfig.ANONYMOUS_USERS_RATE_LIMIT
 	},
 	standardHeaders: 'draft-6',
 	keyGenerator: (req, res) => {

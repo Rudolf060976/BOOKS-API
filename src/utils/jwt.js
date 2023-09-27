@@ -2,13 +2,13 @@ const jwt = require('jsonwebtoken');
 
 const createError = require('http-errors');
 
-const nconf = require('nconf');
+const GlobalConfig = require('../config');
 
-const config = nconf.get('APP');
+const appConfig = (new GlobalConfig()).getConfig();
 
 const tokenOtions = { // **** OPTIONS FOR GENERATED TOKENS	
 	algorithm: 'HS256',
-	expiresIn: config.RESET_TOKEN_EXPIRATION_SECONDS
+	expiresIn: appConfig.RESET_TOKEN_EXPIRATION_SECONDS
 };
 
 const generateUserToken = async (userId, email) => {
@@ -20,7 +20,7 @@ const generateUserToken = async (userId, email) => {
 			email 
 		};	
 
-		const token = await jwt.sign(payload, config.TOKEN_SECRET_STRING, tokenOtions);
+		const token = await jwt.sign(payload, appConfig.TOKEN_SECRET_STRING, tokenOtions);
 
 		return token
 		
@@ -35,7 +35,7 @@ const verifyUserToken = token => {
 
 	try {
 		
-		const payload = jwt.verify(token, config.TOKEN_SECRET_STRING, tokenOtions);
+		const payload = jwt.verify(token, appConfig.TOKEN_SECRET_STRING, tokenOtions);
 
 		if (!payload) throw createError(500, 'The Token is invalid or Expired!')
 

@@ -1,7 +1,11 @@
 const createError = require('http-errors')
 const Models = require('../models')
 
-const MAX_ITEMS_PER_PAGE = require('nconf').get('APP').MAX_ITEMS_PER_PAGE
+const GlobalConfig = require('../../config');
+
+const appConfig = (new GlobalConfig()).getConfig();
+
+const MAX_ITEMS_PER_PAGE = appConfig.MAX_ITEMS_PER_PAGE
 
 const addAuthor = async (authorData) => {
 

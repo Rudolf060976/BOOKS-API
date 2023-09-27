@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
-const nconf = require('nconf');
-
-const config = nconf.get('APP');
-
-const MONGODB_URI = config.MONGODB_URI;
-
-const DATABASE_NAME = config.DATABASE_NAME;
 
 
 const connectDB = async () => {	
-    return mongoose.connect(`${MONGODB_URI}/${DATABASE_NAME}`, { useNewUrlParser: true, useUnifiedTopology: true });
+
+	const GlobalConfig = require('../config');
+
+	const config = (new GlobalConfig()).getConfig();
+
+	const { MONGODB_URI, DATABASE_NAME } = config;
+	
+  return mongoose.connect(`${MONGODB_URI}/${DATABASE_NAME}`, { useNewUrlParser: true, useUnifiedTopology: true });
 
 };
 
