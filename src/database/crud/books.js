@@ -18,15 +18,27 @@ const addBook = async (bookData) => {
 
 		session.startTransaction()
 		
-		const { title, chapters, pages, authorIds, datePublished, price } = bookData
+		const { isbn, title, chapters, pages, genre, authorIds, publishInfo, price } = bookData
+
+		const {
+			date,
+			publisher,
+			edition
+		} = publishInfo;
 
 		const newBook = await Models.Book.create([
 			{
+				isbn,
 				title,
 				chapters,
 				pages,
-				price: new mongoose.Types.Decimal128(String(price)),
-				datePublished: moment.utc(datePublished).toDate()
+				genre,
+				publishInfo: {
+					date: moment.utc(date).toDate(),
+					publisher,
+					edition
+				},
+				price: new mongoose.Types.Decimal128(String(price))
 			}], { session })
 
 		const bookId = newBook._id
@@ -57,7 +69,8 @@ const getAllBooks = async (page, limit) => {
 
 		const paginateOptions = {
 			page: page || 1,
-			limit: limitApplied
+			limit: limitApplied,
+			populate: ['genre', 'publishInfo.publisher']
 		}
 
 		const books = await Models.Book.paginate({}, paginateOptions);
@@ -112,15 +125,61 @@ const getBook = async (bookId) => {
 		const book = await Models.Book.findById(bookId)
 
 		if (!book) throw createError(404, 'Book not Found')
+		
+		return book.toObject();
 
-		const { pages, chapters } = book
+	} catch (error) {
+		throw createError(error.status || 500, error.message)
+	}
 
-		const pagesPerChapter = chapters > 0 ? (pages / chapters).toFixed(2) : 0
+}
 
-		return {
-			...book.toObject(),
-			pagesPerChapter
+const getFilteredBooks = async (filter, page, limit) => {
+
+	try {
+
+		const limitApplied = (limit && limit <= MAX_ITEMS_PER_PAGE) ? limit : MAX_ITEMS_PER_PAGE
+		
+		const paginateOptions = {
+			page: page || 1,
+			limit: limitApplied
 		}
+
+		const {
+			isbn,
+			title,
+			genre,
+			publisher
+		} = filter;
+
+		const filterToApply = {
+			...(isbn && { isbn }),
+			...(title && { title: /title/i }),
+			...(genre && { genre }),
+			...(publisher && { publisher })
+		}
+		
+		const books = await Models.Book.paginate(filterToApply, paginateOptions);
+		
+		return books;
+
+	} catch (error) {
+		throw createError(error.status || 500, error.message)
+	}
+
+}
+
+const deleteBook = async (bookId) => {
+
+	try {
+
+		const book = await Models.Book.findById(bookId).exec();
+
+		if (!book.isRemovable) {
+			throw createError(403, 'Can`t delete default books!')
+		}
+				
+		await Models.Book.findByIdAndDelete(bookId);
 
 	} catch (error) {
 		throw createError(error.status || 500, error.message)
@@ -133,7 +192,9 @@ module.exports = {
 	getAllBooks,
 	getBookAuthors,
 	addAuthorsToABook,
-	getBook
+	getBook,
+	getFilteredBooks,
+	deleteBook
 }
 
 

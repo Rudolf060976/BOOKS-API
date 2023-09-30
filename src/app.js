@@ -30,6 +30,10 @@ globalConfig.loadConfig().then(() => {
 
 	const sharedAuthRoutes = require('./routes/auth');
 
+	const genreRoutes = require('./routes/genre');
+
+	const publisherRoutes = require('./routes/publisher');
+
 	const rateLimiter = require('./middleware').rateLimit.rateLimiter;
 	
 	/* Will Implement two kinds of Authentication Flows for this project:
@@ -67,6 +71,10 @@ globalConfig.loadConfig().then(() => {
 	app.use('/api/authors', authorRoutes);
 
 	app.use('/api/auth/session/', authSessionRoutes);
+
+	app.use('/api/genres', genreRoutes);
+
+	app.use('/api/publishers', publisherRoutes);
 
 	app.use('/api/auth', sharedAuthRoutes);
 

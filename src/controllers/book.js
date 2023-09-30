@@ -3,20 +3,24 @@ const moment = require('moment');
 const addBook = async (req, res, next) => {
 	
 	const {
+		isbn,
 		title,
 		chapters,
 		pages,
+		genre,
 		authorIds,
-		datePublished,
+		publishInfo,
 		price
 	} = req.body
 
 	const newBook = await crudOperations.book.addBook({
+		isbn,
 		title,
 		chapters,
 		pages,
+		genre,
 		authorIds,
-		datePublished,
+		publishInfo,
 		price
 	})
 
@@ -42,9 +46,7 @@ const addBook = async (req, res, next) => {
 const getBooks = async (req, res, next) => {
 	
 	try {
-    console.log('**** COOKIES *****', JSON.stringify(req.cookies, null, 2))
-		console.log('***** SESSION *****', JSON.stringify(req.session, null, 2))
-
+    
 		const { page, limit } = req.query
 		
 		const allBooks = await crudOperations.book.getAllBooks(page, limit)
@@ -150,10 +152,61 @@ const getBookAuthors = async (req, res, next) => {
 
 }
 
+const getFilteredBooks = async (req, res, next) => {
+
+	try {
+		
+		const { page, limit } = req.query;
+
+		const { filter } = req.body;
+
+		const books = await crudOperations.book.getFilteredBooks(filter, page, limit);
+
+		res.status(201).json({
+			error: null,
+			ok: true,
+			status: 200,
+			message: 'Success',
+			data: {
+							books
+					}
+		});
+
+
+	} catch (error) {
+		next(error);
+	}
+
+}
+
+const deleteBook = async (req, res, next) => {
+
+	try {
+		
+		const { bookId } = req.params;
+
+		await crudOperations.book.deleteBook(bookId);
+
+		res.status(200).json({
+			error: null,
+			ok: true,
+			status: 200,
+			message: 'Success',
+			data: null
+		});
+
+	} catch (error) {
+		next(error);
+	}
+
+}
+
 module.exports = {
 	addBook,
 	getBooks,
 	getBook,
 	addAuthorsToBook,
-	getBookAuthors
+	getBookAuthors,
+	getFilteredBooks,
+	deleteBook
 }

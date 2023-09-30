@@ -1,7 +1,7 @@
 const Joi = require('joi')
 
 const newAuthor = Joi.object({
-	name: Joi.string().max(50).required()
+	name: Joi.string().max(100).required()
 })
 
 const addBooksToAuthorParams = Joi.object({

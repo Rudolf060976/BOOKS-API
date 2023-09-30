@@ -10,6 +10,8 @@ const authorSchema = new Schema({
     name: {
         type: String,
         required: true,
+				maxLength: 100,
+				unique: true
     }
 }, {
 	timestamps: true
