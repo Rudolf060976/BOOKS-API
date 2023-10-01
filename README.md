@@ -5,31 +5,31 @@
 * Always-on: The API is deployed in an Amazon EC2 Virtual Server. You get 24/7 free access.
 * Real responses: GET, POST, PUT & DELETE requests are supported.
 
-## HOW TO RUN LOCALLY
+## How to run locally
 
-1 Install MongoDB v5.0 or newer on your local machine.
-1 Clone the current repo in a local folder.
-1 Add a .env file at the root of the project with the following env variables:
+1. Install MongoDB v5.0 or newer on your local machine.
+1. Clone the current repo in a local folder.
+1. Add a .env file at the root of the project with the following env variables:
 ```
 MONGODB_URI=YOUR_MONGODB_URI
 TOKEN_SECRET_STRING=YOUR_TOKEN_SECRET_STRING
 COOKIES_SECRET_STRING=YOUR_COOKIES_SECRET_STRING
 ```
-1 Update app settings in the appConfig.json file, according to your preferences.
-1 Run `npm install` inside your project folder.
-1 Run `npm run dev` to run the development server on the port indicated in appConfig.json
+4. Update the app settings in the appConfig.json file, according to your preferences.
+5. Run `npm install` inside your project folder.
+6. Run `npm run dev` to run the development server on the port indicated in appConfig.json
 
-## HOW TO MAKE CALLS THE API ON THE WEB
+## How to make calls to the Public API on the Web.
 
-1 The base API Url is the following:
+1. The base API Url is the following:
 ```
 http://ec2-44-202-5-84.compute-1.amazonaws.com:4000
 ```
-1 Every endpoint will be mounted after the base Url, for example:
+2. Every endpoint will be mounted after the base Url, for example:
 ```
 http://ec2-44-202-5-84.compute-1.amazonaws.com:4000/api/genres?page=4&limit=5
 ```
-1 You can use fetch, axios or any other library to make requests.
+3. You can use fetch, axios or any other library to make requests.
 
 ## API REFERENCE
 
