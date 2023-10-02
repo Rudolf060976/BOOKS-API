@@ -101,6 +101,40 @@ Example:
 
 </details>
 
+#### POST /api/genres/new
+
+Body params: name
+
+Example:
+```javascript
+const { data } = await axios.post('<Base API URL>/api/genres/new', {
+	name: 'Custom Genre'
+});
+```
+<details>
+  <summary>Response:</summary>
+
+```jsonc
+{
+    "error": null,
+    "ok": true,
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "genre": {
+            "name": "Custom Genre",
+            "_id": "651b09786b9439626581e78e",
+            "createdAt": "2023-10-02T18:18:33.004Z",
+            "updatedAt": "2023-10-02T18:18:33.004Z",
+            "__v": 0,
+            "id": "651b09786b9439626581e78e"
+        }
+    }
+}
+```
+
+</details>
+
 ### 🥇 Resource: Publishers
 
 #### GET /api/publishers
