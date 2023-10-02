@@ -1,11 +1,13 @@
-# Test your front-end with a Real API
+# 🚀 Test your front-end with a Real API
 ## Books-Api is a Dummy/Fake API that provides JSON data to use in your Development or in Testing.
 
-* Fake data: No more sample data creation. We've got it covered.
-* Always-on: The API is deployed in an Amazon EC2 Virtual Server. You get 24/7 free access.
-* Real responses: GET, POST, PUT & DELETE requests are supported.
+* 🔥 Fake data: No more sample data creation. We've got it covered.
+* 🔥 Always-on: The API is deployed in an Amazon EC2 Virtual Server. You get 24/7 free access.
+* 🔥 Real responses: GET, POST, PUT & DELETE requests are supported.
 
 ## How to run locally
+
+You don't need to run the project locally. If you just want to make calls to the API, jump to the next section.
 
 1. Install MongoDB v5.0 or newer on your local machine.
 1. Clone the current repo in a local folder.
