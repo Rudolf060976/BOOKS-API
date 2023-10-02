@@ -23,11 +23,11 @@ COOKIES_SECRET_STRING=YOUR_COOKIES_SECRET_STRING
 
 ## How to make calls to the Public API on the Web.
 
-1. The base API Url is the following:
+1. The current base API URL is the following:
 ```
 http://ec2-44-202-5-84.compute-1.amazonaws.com:4000
 ```
-2. Every endpoint will be mounted after the base Url, for example:
+2. Every endpoint will be mounted after the base URL, as follows:
 ```
 http://ec2-44-202-5-84.compute-1.amazonaws.com:4000/api/genres?page=4&limit=5
 ```
@@ -45,7 +45,7 @@ Query params: `page` and `limit`
 
 Example:
 ```
-http://ec2-44-202-5-84.compute-1.amazonaws.com:4000/api/genres?page=4&limit=5
+<Base API URL>/api/genres?page=4&limit=5
 ```
 
 <details>
@@ -101,4 +101,82 @@ http://ec2-44-202-5-84.compute-1.amazonaws.com:4000/api/genres?page=4&limit=5
 
 </details>
 
+### 🥇 Resource: Publishers
+
+#### GET /api/publishers
+
+Query params: `page` and `limit`
+
+Example:
+```
+<Base API URL>/api/publishers?page=3&limit=5
+```
+<details>
+  <summary>Response:</summary>
+
+```jsonc
+{
+    "error": null,
+    "ok": true,
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "publishers": {
+            "docs": [
+                {
+                    "_id": "651873284e3c7c3a726b2ae3",
+                    "name": "Drawn and Quarterly",
+                    "createdAt": "2023-09-30T19:12:41.156Z",
+                    "updatedAt": "2023-09-30T19:12:41.156Z",
+                    "__v": 0,
+                    "id": "651873284e3c7c3a726b2ae3"
+                },
+                {
+                    "_id": "651873324e3c7c3a726b2ae7",
+                    "name": "Akashic Books",
+                    "createdAt": "2023-09-30T19:12:50.872Z",
+                    "updatedAt": "2023-09-30T19:12:50.872Z",
+                    "__v": 0,
+                    "id": "651873324e3c7c3a726b2ae7"
+                },
+                {
+                    "_id": "651873424e3c7c3a726b2aeb",
+                    "name": "Copper Canyon Press",
+                    "createdAt": "2023-09-30T19:13:06.700Z",
+                    "updatedAt": "2023-09-30T19:13:06.700Z",
+                    "__v": 0,
+                    "id": "651873424e3c7c3a726b2aeb"
+                },
+                {
+                    "_id": "6518734d4e3c7c3a726b2aef",
+                    "name": "Unnamed Press",
+                    "createdAt": "2023-09-30T19:13:17.518Z",
+                    "updatedAt": "2023-09-30T19:13:17.518Z",
+                    "__v": 0,
+                    "id": "6518734d4e3c7c3a726b2aef"
+                },
+                {
+                    "_id": "651873574e3c7c3a726b2af3",
+                    "name": "CSIRO Publishing",
+                    "createdAt": "2023-09-30T19:13:27.943Z",
+                    "updatedAt": "2023-09-30T19:13:27.943Z",
+                    "__v": 0,
+                    "id": "651873574e3c7c3a726b2af3"
+                }
+            ],
+            "totalDocs": 20,
+            "limit": 5,
+            "totalPages": 4,
+            "page": 3,
+            "pagingCounter": 11,
+            "hasPrevPage": true,
+            "hasNextPage": true,
+            "prevPage": 2,
+            "nextPage": 4
+        }
+    }
+}
+```
+
+</details>
 

@@ -27,8 +27,10 @@ const addPublisher = async (req, res, next) => {
 const getAllPublishers = async (req, res, next) => {
 
 	try {
+
+		const { page, limit } = req.query
 		
-		const publishers = await crudOperations.publishers.getAllPublishers();
+		const publishers = await crudOperations.publishers.getAllPublishers(page, limit);
 
 		res.status(201).json({
 			error: null,
