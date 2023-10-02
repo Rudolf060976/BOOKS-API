@@ -35,7 +35,7 @@ http://ec2-44-202-5-84.compute-1.amazonaws.com:4000/api/genres?page=4&limit=5
 
 ## API REFERENCE
 
-### 🥇Resource: Genres
+### 🥇 Resource: Genres
 
 #### GET /api/genres
 
@@ -50,7 +50,7 @@ http://ec2-44-202-5-84.compute-1.amazonaws.com:4000/api/genres?page=4&limit=5
 
 Response:
 
-	```javascript
+```jsonc
 {
     "error": null,
     "ok": true,
