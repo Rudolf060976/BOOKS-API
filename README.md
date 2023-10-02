@@ -41,17 +41,15 @@ http://ec2-44-202-5-84.compute-1.amazonaws.com:4000/api/genres?page=4&limit=5
 
 Query params: `page` and `limit`
 
-> Note: All results based on lists are paginated. The response will include the results along with pagination info. Page and limit params are optional. If you don't send these params, the response will default to page=1 and limit=max_limit. max_limit is defined in the appConfig.json file of the project. Any limit param higher than max_limit will be set to max_limit.  
+> Note: All results based on lists are paginated. The response will include the results in a "docs" array, along with pagination info. Page and limit params are optional. If you don't send these params, the response will default to page=1 and limit=max_limit. max_limit is defined in the appConfig.json file of the project. Any limit param higher than max_limit will be set to max_limit.  
 
 Example:
 ```
 http://ec2-44-202-5-84.compute-1.amazonaws.com:4000/api/genres?page=4&limit=5
 ```
-<details>
-  <summary><h4>Response:</h4></summary>
 
+Response:
 	```
-
 {
     "error": null,
     "ok": true,
@@ -97,8 +95,4 @@ http://ec2-44-202-5-84.compute-1.amazonaws.com:4000/api/genres?page=4&limit=5
         }
     }
 }
-
 ```
-
-</details>
-
