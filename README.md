@@ -103,7 +103,7 @@ Example:
 
 #### POST /api/genres/new
 
-Body params: name
+Request body params: name
 
 Example:
 ```javascript
@@ -214,3 +214,113 @@ Example:
 
 </details>
 
+#### POST /api/publishers/new
+
+Request body params: name
+
+Example:
+```javascript
+const { data } = await axios.post('<Base API URL>/api/publishers/new', {
+	name: 'Jo Fletcher Books'
+});
+```
+<details>
+  <summary>Response:</summary>
+
+```jsonc
+{
+    "error": null,
+    "ok": true,
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "publisher": {
+            "name": "Jo Fletcher Books",
+            "_id": "651debea403ab79e54994662",
+            "createdAt": "2023-10-04T22:49:14.644Z",
+            "updatedAt": "2023-10-04T22:49:14.644Z",
+            "__v": 0,
+            "id": "651debea403ab79e54994662"
+        }
+    }
+}
+```
+
+</details>
+
+### 🥇 Resource: Books
+
+#### GET /api/books
+
+Query params: `page` and `limit`
+
+> Note: All results based on lists are paginated. The response will include the results in a "docs" array, along with pagination info. Page and limit params are optional. If you don't send these params, the response will default to page=1 and limit=max_limit. max_limit is defined in the appConfig.json file of the project. Any limit param higher than max_limit will be set to max_limit.  
+
+Example:
+```
+<Base API URL>/api/books?page=2&limit=5
+```
+
+<details>
+  <summary>Response:</summary>
+
+```jsonc
+{
+    "error": null,
+    "ok": true,
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "books": {
+            "docs": [
+                {
+                    "publishInfo": {
+                        "date": "2022-10-25T00:00:00.000Z",
+                        "publisher": {
+                            "_id": "651872794e3c7c3a726b2ab6",
+                            "name": "Text Publishing",
+                            "createdAt": "2023-09-30T19:09:45.959Z",
+                            "updatedAt": "2023-09-30T19:09:45.959Z",
+                            "__v": 0,
+                            "id": "651872794e3c7c3a726b2ab6"
+                        },
+                        "edition": 1
+                    },
+                    "_id": "65188992842790d77dc1db7d",
+                    "isbn": "978-0593545768",
+                    "title": "Sign Here",
+                    "chapters": 18,
+                    "pages": 416,
+                    "genre": {
+                        "_id": "651876f8c4893be07f069eab",
+                        "name": "Humor",
+                        "createdAt": "2023-09-30T19:28:56.366Z",
+                        "updatedAt": "2023-09-30T19:28:56.366Z",
+                        "__v": 0,
+                        "id": "651876f8c4893be07f069eab"
+                    },
+                    "price": {
+                        "$numberDecimal": "22.5"
+                    },
+                    "isRemovable": false,
+                    "createdAt": "2023-09-30T20:48:18.968Z",
+                    "updatedAt": "2023-09-30T20:48:18.968Z",
+                    "__v": 0,
+                    "id": "65188992842790d77dc1db7d"
+                }
+            ],
+            "totalDocs": 6,
+            "limit": 5,
+            "totalPages": 2,
+            "page": 2,
+            "pagingCounter": 6,
+            "hasPrevPage": true,
+            "hasNextPage": false,
+            "prevPage": 1,
+            "nextPage": null
+        }
+    }
+}
+```
+
+</details>
