@@ -103,7 +103,12 @@ Example:
 
 #### POST /api/genres/new
 
-Request body params: name
+Request body params:
+```javascript
+{
+	name: string
+}
+```
 
 Example:
 ```javascript
@@ -134,6 +139,8 @@ const { data } = await axios.post('<Base API URL>/api/genres/new', {
 ```
 
 </details>
+
+***
 
 ### 🥇 Resource: Publishers
 
@@ -216,7 +223,12 @@ Example:
 
 #### POST /api/publishers/new
 
-Request body params: name
+Request body params:
+```javascript
+{
+	name: string
+}
+```
 
 Example:
 ```javascript
@@ -247,6 +259,8 @@ const { data } = await axios.post('<Base API URL>/api/publishers/new', {
 ```
 
 </details>
+
+***
 
 ### 🥇 Resource: Books
 
@@ -318,6 +332,65 @@ Example:
             "hasNextPage": false,
             "prevPage": 1,
             "nextPage": null
+        }
+    }
+}
+```
+
+</details>
+
+#### POST /api/books/new
+
+Request body params:
+```javascript
+{
+    "isbn": string,
+    "title": string,
+    "chapters": number,
+    "pages": number,
+    "genre": genreId,
+    "publishInfo": {
+        "date": string,
+        "publisher": publisherId,
+        "edition": number
+    },
+    "price": number
+}
+```
+
+Example:
+```javascript
+const { data } = await axios.post('<Base API URL>/api/publishers/new', {
+    "isbn": "9781447268987",
+    "title": "Station Eleven",
+    "chapters": 12,
+    "pages": 360,
+    "genre": "6518769dc4893be07f069e8f",
+    "publishInfo": {
+        "date": "2014-09-01",
+        "publisher": "651872674e3c7c3a726b2ab2",
+        "edition": 2
+    },
+    "price": 25.99
+});
+```
+<details>
+  <summary>Response:</summary>
+
+```jsonc
+{
+    "error": null,
+    "ok": true,
+    "status": 200,
+    "message": "Success",
+    "data": {
+        "publisher": {
+            "name": "Jo Fletcher Books",
+            "_id": "651debea403ab79e54994662",
+            "createdAt": "2023-10-04T22:49:14.644Z",
+            "updatedAt": "2023-10-04T22:49:14.644Z",
+            "__v": 0,
+            "id": "651debea403ab79e54994662"
         }
     }
 }
