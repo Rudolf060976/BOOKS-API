@@ -364,7 +364,7 @@ Request body params:
 
 Example:
 ```javascript
-const { data } = await axios.post('<Base API URL>/api/publishers/new', {
+const { data } = await axios.post('<Base API URL>/api/books/new', {
     "isbn": "9781447268987",
     "title": "Station Eleven",
     "chapters": 12,
