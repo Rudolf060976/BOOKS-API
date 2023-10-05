@@ -402,4 +402,4 @@ const { data } = await axios.post('<Base API URL>/api/books/new', {
 
 </details>
 
-> Note: `genre` and `publisher` properties (in the request body params object) must be valid ids from api/genres and api/publishers endpoints. The `date` property must be a string with the 'YYYY-09-01' format. All properties must have the right data types, otherwhise the call will return a validation error.
+> Note: `genre` and `publisher` properties (in the request body params object) must be valid ids from `api/genres` and `api/publishers` endpoints. The `date` property must be a string with the `YYYY-MM-DD` format. All properties must have the right data types, otherwise the call will return a validation error.
